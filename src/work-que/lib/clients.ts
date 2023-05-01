@@ -3,6 +3,7 @@ import { proxyRMQnames, rmqConfig } from './config-rmq.js';
 import { v4 as uuidv4 } from 'uuid';
 import { RMQ_construct_queues } from './base-req-res.js';
 import { MSGproxyInquery } from './types.js';
+import { namedLog } from './helpers.js';
 
 export class RMQ_clientQuery extends RMQ_construct_queues {
   protected internalID = 0;
@@ -10,6 +11,7 @@ export class RMQ_clientQuery extends RMQ_construct_queues {
   constructor() {
     const { exchange, queueInputName, routingKey } = proxyRMQnames;
     super(exchange, queueInputName, routingKey);
+    this.log = namedLog('client');
   }
 
   async createRMQ_clientQuery() {
@@ -41,9 +43,9 @@ export class RMQ_clientQuery extends RMQ_construct_queues {
   }
 
   private handelResponce = async (msg: ConsumeMessage) => {
-    console.log(msg.fields);
-    console.log(msg.content.toString());
-    console.log('======== handelResponce end');
+    this.log.debug(msg.fields);
+    this.log.debug(msg.content.toString());
+    this.log.debug('======== handelResponce end');
     await this.channel.ack(msg);
   };
 }

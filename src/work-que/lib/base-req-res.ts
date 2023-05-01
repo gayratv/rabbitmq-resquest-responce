@@ -1,11 +1,13 @@
 import amqplib, { Channel, Connection } from 'amqplib';
 import { ConsumeMessage } from 'amqplib';
 import { rmqConfig } from './config-rmq.js';
+import { SimpleLog } from 'tslog-fork';
 
 export class RMQ_construct_queues {
   protected connection: Connection;
   protected channel: Channel;
   protected responceQueueName: string;
+  public log: SimpleLog;
 
   constructor(public exchange: string, public queueInputName: string, public routingKey: string) {}
 
