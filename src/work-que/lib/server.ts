@@ -36,6 +36,7 @@ export class RMQ_serverQuery extends RMQ_construct_queues {
 
     const payload: MSGproxyInquery = JSON.parse(msg.content.toString());
     const responce: ProxyResponce = { proxy: this.proxyInternal.toString(), internalID: payload.internalID };
+    this.proxyInternal++;
 
     this.channel.sendToQueue(payload.responceQueueName, Buffer.from(JSON.stringify(responce)));
 

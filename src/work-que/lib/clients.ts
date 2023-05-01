@@ -15,7 +15,7 @@ export class RMQ_clientQuery extends RMQ_construct_queues {
   }
 
   async createRMQ_clientQuery() {
-    this.createRMQ_construct_queues();
+    await this.createRMQ_construct_queues();
 
     await this.initPrivateQueueForResponces();
 
@@ -23,7 +23,7 @@ export class RMQ_clientQuery extends RMQ_construct_queues {
   }
 
   // послать сообщение обработчику0
-  async senProxyRequest() {
+  async sendProxyRequest() {
     const msg: MSGproxyInquery = { internalID: this.internalID++, responceQueueName: this.responceQueueName };
     const esendRes = await this.channel.publish(this.exchange, this.routingKey, Buffer.from(JSON.stringify(msg)));
   }

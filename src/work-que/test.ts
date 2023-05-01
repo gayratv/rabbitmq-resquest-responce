@@ -6,3 +6,6 @@ await srv.createRMQ_serverQuery();
 
 const cli = new RMQ_clientQuery();
 await cli.createRMQ_clientQuery();
+
+await cli.sendProxyRequest();
+await cli.sendProxyRequest();

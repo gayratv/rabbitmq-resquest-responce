@@ -2,6 +2,7 @@ import amqplib, { Channel, Connection } from 'amqplib';
 import { ConsumeMessage } from 'amqplib';
 import { rmqConfig } from './config-rmq.js';
 import { SimpleLog } from 'tslog-fork';
+import { delay } from './helpers.js';
 
 export class RMQ_construct_queues {
   protected connection: Connection;
@@ -25,5 +26,12 @@ export class RMQ_construct_queues {
     // подлкючится к  que для запроса работы
     await this.channel.assertQueue(this.queueInputName, { durable: false });
     await this.channel.bindQueue(this.queueInputName, this.exchange, this.routingKey);
+  }
+
+  async closeConnection() {
+    await delay(500);
+    await this.channel.close();
+    await this.connection.close();
+    this.log.info('Channel and connection closed');
   }
 }
