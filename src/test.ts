@@ -1,5 +1,5 @@
-import { RMQ_serverQuery } from './lib/server.js';
-import { RMQ_clientQuery } from './lib/clients.js';
+import { RMQ_serverQuery } from './rmq-request-responce/lib/server.js';
+import { RMQ_clientQuery } from './rmq-request-responce/lib/clients.js';
 
 const srv = new RMQ_serverQuery();
 await srv.createRMQ_serverQuery();

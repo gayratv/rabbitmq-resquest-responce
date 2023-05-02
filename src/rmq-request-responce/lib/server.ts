@@ -1,10 +1,10 @@
 import { ConsumeMessage } from 'amqplib';
-import { proxyRMQnames, rmqConfig } from './config-rmq.js';
+import { proxyRMQnames, rmqConfig } from '../../config/config-rmq.js';
 import { v4 as uuidv4 } from 'uuid';
 import { RMQ_construct_queues } from './base-req-res.js';
 import { MSGproxyInquery, ProxyResponce } from './types.js';
 import { SimpleLog } from 'tslog-fork';
-import { namedLog } from './helpers.js';
+import { namedLog } from '../../helpers/common.js';
 
 /*
  * принимает запрос по queue и отправляет ответ в очередь, указанную в msg

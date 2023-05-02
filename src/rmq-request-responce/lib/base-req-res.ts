@@ -1,8 +1,8 @@
 import amqplib, { Channel, Connection } from 'amqplib';
 import { ConsumeMessage } from 'amqplib';
-import { rmqConfig } from './config-rmq.js';
+import { rmqConfig } from '../../config/config-rmq.js';
 import { SimpleLog } from 'tslog-fork';
-import { delay } from './helpers.js';
+import { delay } from '../../helpers/common.js';
 
 export class RMQ_construct_queues {
   protected connection: Connection;

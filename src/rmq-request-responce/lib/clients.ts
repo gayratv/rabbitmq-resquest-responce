@@ -1,9 +1,9 @@
 import { ConsumeMessage } from 'amqplib';
-import { proxyRMQnames, rmqConfig } from './config-rmq.js';
+import { proxyRMQnames, rmqConfig } from '../../config/config-rmq.js';
 import { v4 as uuidv4 } from 'uuid';
 import { RMQ_construct_queues } from './base-req-res.js';
 import { MSGproxyInquery } from './types.js';
-import { namedLog } from './helpers.js';
+import { namedLog } from '../../helpers/common.js';
 
 export class RMQ_clientQuery extends RMQ_construct_queues {
   protected internalID = 0;
@@ -39,13 +39,13 @@ export class RMQ_clientQuery extends RMQ_construct_queues {
 
   // responceQueueName - поступают ответы от сервера
   private async consumeResponce() {
-    await this.channel.consume(this.responceQueueName, this.handelResponce, { noAck: false });
+    await this.channel.consume(this.responceQueueName, this.handleResponce, { noAck: false });
   }
 
-  private handelResponce = async (msg: ConsumeMessage) => {
+  private handleResponce = async (msg: ConsumeMessage) => {
     this.log.debug(msg.fields);
     this.log.debug(msg.content.toString());
-    this.log.debug('======== handelResponce end');
+    this.log.debug('======== handleResponce end');
     await this.channel.ack(msg);
   };
 }
