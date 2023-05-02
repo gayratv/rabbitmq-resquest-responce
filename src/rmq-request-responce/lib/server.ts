@@ -22,6 +22,9 @@ export class RMQ_serverQuery extends RMQ_construct_queues {
 
   private async consumeRequest(worker: Worker) {
     const workerBind = worker.bind(this);
+    // клиенты будут получать по одному сообщению за один раз
+    await this.channel.prefetch(1, false); // Per consumer limit
+
     await this.channel.consume(this.queueInputName, workerBind, { noAck: false });
   }
 }

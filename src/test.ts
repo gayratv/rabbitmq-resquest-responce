@@ -11,7 +11,8 @@ async function main() {
   const cli = await RMQ_proxyClientQuery.createRMQ_clientQuery(exchange, queueInputName, routingKey);
 
   await cli.sendProxyRequest();
-  // await cli.sendProxyRequest();
+  await cli.sendProxyRequest();
+  await cli.sendProxyRequest();
   console.log('******** FINISH');
 }
 

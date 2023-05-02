@@ -1,5 +1,4 @@
 import amqplib, { Channel, Connection } from 'amqplib';
-import { rmqConfig } from '../../config/config-rmq.js';
 import { NLog } from 'tslog-fork';
 import { RmqConnection } from './rmq-connection.js';
 

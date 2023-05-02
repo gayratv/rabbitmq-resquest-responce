@@ -35,9 +35,17 @@ export class RMQ_clientQueryBase extends RMQ_construct_queues {
 
   // от сервера поступили ответы на запросы - надо с ними как то поступить
   private handleResponse = async (msg: ConsumeMessage) => {
-    this.log.debug(msg.fields);
-    this.log.debug(msg.content.toString());
-    this.log.debug('======== handleResponse end');
+    // this.log.debug(msg.fields);
+    /*
+    { consumerTag: 'amq.ctag-O4exIyYvAK6scJ9un0BgIw',
+  deliveryTag: 4,
+  redelivered: false,
+  exchange: '',
+  routingKey: 'proxy-e5ea5a1b-f0c1-4ee6-9795-3b0c13006bed' }
+
+     */
+
+    this.log.debug('Получен ответ от сервера', msg.content.toString());
     await this.channel.ack(msg);
   };
 }

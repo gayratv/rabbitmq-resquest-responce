@@ -11,11 +11,20 @@ export async function workerGetProxy(this: RMQ_serverQuery, msg: ConsumeMessage)
   const rcon = await RmqConnection.getInstance();
   const log = NLog.getInstance();
 
-  log.debug(msg.fields);
-  log.debug(msg.content.toString());
+  // log.debug(msg.fields);
+  /*
+  { consumerTag: 'amq.ctag-Y56MHQSgejHXJZ32md5qyw',
+  deliveryTag: 2,
+  redelivered: false,
+  exchange: 'proxy.exchange',
+  routingKey: 'proxy.getproxy' }
+
+   */
+
+  // {"internalID":0,"responseQueueName":"proxy-86fc51b0-8a2c-4c1f-bf45-feacb93e779e"}
 
   const payload: MSGproxyEnquiry = JSON.parse(msg.content.toString());
-  log.debug(' server recieve query', payload.internalID);
+  log.debug('Получил задание ', msg.content.toString(), ' server recieve query ', payload.internalID);
 
   const response: ProxyResponce = { proxy: proxyInternal.toString(), internalID: payload.internalID };
   proxyInternal++;
