@@ -1,6 +1,6 @@
-// соообщение запроса proxy
-export interface MSGproxyInquery {
-  responceQueueName: string;
+// сообщение запроса proxy
+export interface MSGproxyEnquiry {
+  responseQueueName: string;
   internalID?: number;
   leasePeriod?: number; // время аренды
 }

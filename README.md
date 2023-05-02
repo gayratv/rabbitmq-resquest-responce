@@ -1,5 +1,3 @@
-docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:management
-
 Realize request/response pattern
 
 There are many clients sending requests to a single worker.
@@ -13,4 +11,11 @@ On initialization, client creates a temporary queue which is deleted when client
 }
 
 The worker, after processing the request, places the response into the queue created by the client
+
+To start project you can use docker on local machine:
+
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:management
+
+This is a managed image of RabbitMQ and you can use this link to manage RMQ (guest/guest credential) 
+http://localhost:15672
 

@@ -1,14 +1,14 @@
 import amqplib, { Channel, Connection } from 'amqplib';
 import { ConsumeMessage } from 'amqplib';
 import { rmqConfig } from '../../config/config-rmq.js';
-import { SimpleLog } from 'tslog-fork';
+import { NLog, SimpleLog } from 'tslog-fork';
 import { delay } from '../../helpers/common.js';
 
 export class RMQ_construct_queues {
   protected connection: Connection;
   protected channel: Channel;
   protected responceQueueName: string;
-  public log: SimpleLog;
+  public log = NLog.getInstance();
 
   constructor(public exchange: string, public queueInputName: string, public routingKey: string) {}
 
