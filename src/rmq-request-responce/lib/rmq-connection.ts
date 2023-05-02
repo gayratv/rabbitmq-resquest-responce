@@ -34,6 +34,7 @@ export class RmqConnection {
     if (!RmqConnection.instance) {
       RmqConnection.instance = await RmqConnection.RmqConnection();
     }
+    return RmqConnection.instance;
   }
 
   static async closeRMQconnection() {

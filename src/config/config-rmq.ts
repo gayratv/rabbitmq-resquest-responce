@@ -8,6 +8,6 @@ export const rmqConfig: Options.Connect = {
 
 export const proxyRMQnames = {
   exchange: 'proxy.exchange',
-  queueInputName: 'proxy.queue.input',
+  queueInputName: 'proxy.getproxy',
   routingKey: 'proxy.getproxy',
 };

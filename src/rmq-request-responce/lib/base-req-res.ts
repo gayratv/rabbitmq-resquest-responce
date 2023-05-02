@@ -1,14 +1,17 @@
 import amqplib, { Channel, Connection } from 'amqplib';
-import { ConsumeMessage } from 'amqplib';
 import { rmqConfig } from '../../config/config-rmq.js';
-import { NLog, SimpleLog } from 'tslog-fork';
-import { delay } from '../../helpers/common.js';
+import { NLog } from 'tslog-fork';
+import { RmqConnection } from './rmq-connection.js';
 
+/*
+ * порядок использования
+ * const a=new RMQ_construct_queues(....);
+ * await a.createRMQ_construct_queues()
+ */
 export class RMQ_construct_queues {
-  protected connection: Connection;
-  protected channel: Channel;
-  protected responceQueueName: string;
   public log = NLog.getInstance();
+  public connection: Connection;
+  public channel: Channel;
 
   constructor(public exchange: string, public queueInputName: string, public routingKey: string) {}
 
@@ -17,21 +20,20 @@ export class RMQ_construct_queues {
    * а такеже очередь queueInputName
    */
   async createRMQ_construct_queues() {
-    // const rcq = new RMQ_construct_queues(exchange, queueInputName, routingKey);
-    this.connection = await amqplib.connect(rmqConfig);
-    this.channel = await this.connection.createChannel();
+    const rcon = await RmqConnection.getInstance();
+    this.connection = rcon.connection;
+    this.channel = rcon.channel;
 
-    await this.channel.assertExchange(this.exchange, 'direct', { durable: false });
+    await rcon.channel.assertExchange(this.exchange, 'direct', { durable: false });
 
-    // подлкючится к  que для запроса работы
-    await this.channel.assertQueue(this.queueInputName, { durable: false });
-    await this.channel.bindQueue(this.queueInputName, this.exchange, this.routingKey);
+    // подключится к  que для запроса работы
+    await rcon.channel.assertQueue(this.queueInputName, { durable: false });
+    await rcon.channel.bindQueue(this.queueInputName, this.exchange, this.routingKey);
   }
 
-  async closeConnection() {
-    await delay(500);
-    await this.channel.close();
-    await this.connection.close();
-    this.log.info('Channel and connection closed');
+  async closeConnections() {
+    await RmqConnection.closeRMQconnection();
+    this.connection = null;
+    this.channel = null;
   }
 }
